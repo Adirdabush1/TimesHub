@@ -25,8 +25,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onSubmit }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="space-y-4">
+      <form onSubmit={handleSubmit}>
         {!isLogin && (
           <input
             type="text"
@@ -52,6 +52,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onSubmit }) => {
         />
         <button type="submit">{isLogin ? "Login" : "Register"}</button>
       </form>
+
       <div style={{ textAlign: "center", marginTop: "1rem" }}>
         <p>or</p>
         <button

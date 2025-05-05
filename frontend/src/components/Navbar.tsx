@@ -29,8 +29,56 @@ const Navbar = () => {
     >
       <h2>📰 ArticleStore</h2>
       <div>
-        <input placeholder="Search articles" style={{ marginRight: '1rem' }} />
-        <button>My Account</button>
+        <input placeholder="Search articles" style={{ marginRight: "1rem" }} />
+        <div style={{ display: "inline-block", position: "relative" }}>
+          <button onClick={() => setDropdownOpen(!dropdownOpen)}>
+            My Account ⌄
+          </button>
+          {dropdownOpen && (
+            <div
+              style={{
+                position: "absolute",
+                right: 0,
+                background: "#fff",
+                border: "1px solid #ccc",
+                marginTop: "0.5rem",
+                zIndex: 10,
+              }}
+            >
+              {!isLoggedIn ? (
+                <button
+                  style={{ display: "block", width: "100%", padding: "0.5rem" }}
+                  onClick={() => navigate("/auth")}
+                >
+                  Login / Register
+                </button>
+              ) : (
+                <>
+                  <button
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      padding: "0.5rem",
+                    }}
+                    onClick={() => navigate("/my-articles")}
+                  >
+                    My Articles
+                  </button>
+                  <button
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      padding: "0.5rem",
+                    }}
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
