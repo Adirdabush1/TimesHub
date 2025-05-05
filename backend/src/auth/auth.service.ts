@@ -1,38 +1,71 @@
-import { Injectable } from '@nestjs/common';
-import { LoginUserDto } from './dto/login-user.dto';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+} from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserService } from './user/user.service'; // Import UserService
+import { LoginUserDto } from './dto/login-user.dto';
+import { UserService } from './user/user.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {} // Inject UserService
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async register(createUserDto: CreateUserDto): Promise<any> {
-    // Check if the user already exists
-    const existingUser = await this.userService.findByEmail(
-      createUserDto.email,
-    );
+    const { email, password, name } = createUserDto;
+
+    const existingUser = await this.userService.findByEmail(email);
     if (existingUser) {
-      return { message: 'User already exists' };
+      throw new ConflictException('User already exists');
     }
-    // Hash the password before saving it to the database
-    return { message: 'User registered successfully', user: createUserDto };
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await this.userService.createUser(
+      email,
+      hashedPassword,
+      name,
+    );
+
+    return {
+      message: 'User registered successfully',
+      user: {
+        email: newUser.email,
+        name: newUser.name,
+      },
+    };
   }
 
   async login(loginUserDto: LoginUserDto): Promise<any> {
-    // Check if the user exists
-    const user = await this.userService.findByEmail(loginUserDto.email);
+    const { email, password } = loginUserDto;
+
+    const user = await this.userService.findByEmail(email);
     if (!user) {
-      return { message: 'User not found' };
+      throw new UnauthorizedException('User not found');
     }
-    // Check if the password is correct
+
     const isPasswordValid = await this.userService.validatePassword(
-      loginUserDto.password,
+      password,
       user.password,
     );
     if (!isPasswordValid) {
-      return { message: 'Invalid password' };
+      throw new UnauthorizedException('Invalid password');
     }
-    return { message: 'Signed In', user: loginUserDto };
+
+    const payload = { email: user.email };
+    const token = this.jwtService.sign(payload);
+
+    return {
+      message: 'Signed in successfully',
+      token,
+      user: {
+        email: user.email,
+        name: user.name,
+      },
+    };
   }
 }
