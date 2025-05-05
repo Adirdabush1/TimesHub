@@ -2,31 +2,32 @@ import React, { useState } from "react";
 
 interface AuthFormProps {
   isLogin: boolean;
-  onSubmit: (formData: {
-    email: string;
-    password: string;
-    name?: string;
-  }) => void;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ isLogin, onSubmit }) => {
+const AuthForm: React.FC<AuthFormProps> = ({ isLogin }) => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit({ email, password, ...(isLogin ? {} : { name }) });
+  
+  const handleRegister = async (formData: { email: string; password: string; name?: string }) => {
+    const res = await fetch('http://localhost:3000/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+  
+    const data = await res.json();
+    console.log(data);
   };
 
   const handleGoogleLogin = () => {
-    // Temporary: redirect to backend Google OAuth endpoint
     window.location.href = "http://localhost:3000/auth/google";
   };
 
   return (
     <div className="space-y-4">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => { e.preventDefault(); handleRegister({ email, password, ...(isLogin ? {} : { name }) }); }}>
         {!isLogin && (
           <input
             type="text"
