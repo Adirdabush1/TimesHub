@@ -5,7 +5,8 @@ const Navbar = () => {
       <h2>📰 ArticleStore</h2>
       <div>
         <input placeholder="Search articles" style={{ marginRight: '1rem' }} />
-        <button>My Account</button>
+        <link ></link>
+        <button> My Account</button>
       </div>
     </nav>
   );
