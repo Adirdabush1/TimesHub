@@ -20,6 +20,7 @@ const Home = () => {
             Login / Register
           </button>
           <ArticleCard
+            onClick={() => navigate("/article")}
             title="Introduction to TypeScript"
             preview="TypeScript is a typed superset of JavaScript that helps developers write safer code."
             price={10}
