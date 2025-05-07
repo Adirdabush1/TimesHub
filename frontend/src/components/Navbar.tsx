@@ -27,7 +27,7 @@ const Navbar = () => {
         position: "relative",
       }}
     >
-      <h2>📰 ArticleStore</h2>
+      <h2>📰 TimesHub</h2>
       <div>
         <input placeholder="Search articles" style={{ marginRight: "1rem" }} />
         <div style={{ display: "inline-block", position: "relative" }}>
