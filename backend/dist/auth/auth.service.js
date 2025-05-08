@@ -25,7 +25,7 @@ let AuthService = class AuthService {
         const { email, password, name } = createUserDto;
         const existingUser = await this.userService.findByEmail(email);
         if (existingUser) {
-            throw new common_1.UnauthorizedException('User already exists');
+            throw new common_1.ConflictException('User already exists');
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await this.userService.createUser(email, hashedPassword, name);

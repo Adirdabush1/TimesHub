@@ -17,9 +17,11 @@ const Auth: React.FC = () => {
 
       const token = res.data.token;
       localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       alert("Logged in!");
+      window.location.href = "/";
     } catch (err: any) {
-      alert(err.response?.data?.message || "Auth failed");
+      alert(err.message || "Auth failed");
     }
   };
 
