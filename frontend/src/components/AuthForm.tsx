@@ -1,11 +1,15 @@
 // src/components/AuthForm.tsx
 import React, { useState } from "react";
 import { auth, GoogleAuthProvider, signInWithPopup } from "./Firebase.tsx"; // import the new methods
+import { useNavigate } from 'react-router-dom';
+
 
 const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const navigate = useNavigate();
+
 
   // פונקציה להתחברות עם גוגל דרך Firebase
   const handleGoogleLogin = async () => {
@@ -14,11 +18,18 @@ const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
       const result = await signInWithPopup(auth, provider); // התחברות דרך פופאפ
       const user = result.user;  // קבלת פרטי המשתמש
       console.log("User signed in with Google: ", user);
-      // אם תרצה, תוכל לשלוח את המידע לשרת שלך, לשמור אותו ב-state, וכו'
+      localStorage.setItem("user", JSON.stringify({ email: user.displayName || "Unknown" }));
+      localStorage.setItem("authMethod", "google"); // <--- שורת מפתח!
+
+      navigate("/");
+
+      
     } catch (error) {
       console.error("Google login failed: ", error);
     }
   };
+
+  
 
   // פונקציה לשליחת בקשה לשרת להירשם או להתחבר
   const handleRegister = async (formData: { email: string; password: string; name?: string }) => {
@@ -28,17 +39,26 @@ const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-
+  
       if (!res.ok) {
         throw new Error('Failed to register');
       }
-
+  
       const data = await res.json();
-      console.log(data); // הדפס את התשובה מהשרת אם הכל עבר בהצלחה
+      console.log(data);
+      
+      localStorage.setItem("user", JSON.stringify({
+        name: formData.name || "User",
+        email: formData.email
+      }));
+      localStorage.setItem("authMethod", "local"); // <--- שורת מפתח!
+
+      navigate("/");
     } catch (error) {
       console.error('Error during registration:', error);
     }
   };
+  
 
   return (
     <div className="space-y-4">
