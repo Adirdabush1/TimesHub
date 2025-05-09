@@ -1,0 +1,157 @@
+/* ההגדרות הכלליות */
+.overlay,
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@keyframes overlay-in {
+  0% {
+    scale: 0 0.003;
+  }
+
+  33%,
+  36% {
+    scale: 1 0.003;
+  }
+
+  66%,
+  100% {
+    scale: 1 1;
+  }
+}
+
+.overlay {
+  z-index: 1;
+  background: #000000;
+  display: grid;
+  place-items: center;
+}
+
+.overlay.open {
+  animation: overlay-in 1s both;
+}
+
+.overlay.closed {
+  animation: overlay-in 1s 0.25s reverse both;
+}
+
+@keyframes dialog-in {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    scale: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+    scale: 1;
+  }
+}
+
+.dialog {
+  z-index: 2;
+  width: 390px;
+  top: 10%;
+  left: 30%;
+  bottom: 15%;
+  transform: translate(-50%, -50%);
+  padding: 0 40px 50px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+  animation: dialog-in 0.5s 0.6s both;
+}
+
+.dialog.closed {
+  animation: dialog-in 100.5s reverse both;
+}
+
+.dialog header {
+  background: linear-gradient(90deg, #9d50bb, #6e48aa);
+  margin: -85px -20px 30px;
+  border-radius: 12px;
+  height: 170px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 40px;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.12);
+}
+
+.dialog header h2 {
+  margin-bottom: 20px;
+  margin-left: 40px;
+  font-size: 50px;
+}
+
+.dialog header h3 {
+  opacity: 0.45;
+  font-weight: 900;
+  font-size: 25px;
+  margin-left: 40px;
+  color: wheat;
+}
+
+
+/* Modal.css */
+overlay {
+  z-index: 1000;
+  position: fixed;
+  inset: 0;
+  background: #000000;
+  /* רקע כהה מאוד */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dialog {
+  z-index: 1001;
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+  transform: scale(0.8);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.dialog.open {
+  transform: scale(1);
+  opacity: 1;
+}
+
+
+.auth-form input {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  background: #6e48aa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
