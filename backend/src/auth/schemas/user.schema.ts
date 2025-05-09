@@ -14,6 +14,9 @@ export class User extends Document {
 
   @Prop()
   photo: string;
+
+  @Prop({ default: 'none' }) 
+  subscriptionStatus: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
