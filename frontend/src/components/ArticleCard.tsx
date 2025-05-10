@@ -16,7 +16,7 @@ const ArticleCard = ({ title, preview, price, onClick }: Props) => {
     >
       <h3>{title}</h3>
       <p>{preview}...</p>
-      <button>🔓 Read for only ₪{price}</button>
+      <button onClick={onClick}>🔓 Read for only ₪{price}</button>
     </div>
   );
 };
