@@ -124,3 +124,5 @@ const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
 };
 
 export default AuthForm;
+
+

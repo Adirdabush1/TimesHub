@@ -1,0 +1,192 @@
+/* רקע כללי */
+.home-wrapper {
+  background: url('https://your-image-url.com/your-background-image.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  position: relative;
+  filter: brightness(0.8);
+  /* מעט בהירות */
+}
+
+/* שכבת כהות שקופה */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  /* קצת יותר כהה */
+  z-index: 1;
+}
+
+/* עיצוב זכוכיתי */
+.glass {
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  color: #fff;
+}
+
+/* כפתורים בהאדר */
+.primary-button {
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: #444;
+  /* אפור כהה */
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  margin-right: 1rem;
+  /* מרחק בין הכפתורים */
+}
+
+.primary-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background-color: #555;
+  /* צבע כהה יותר כשיש Hover */
+}
+
+/* כפתור אנימציה */
+.animated-button {
+  animation: fadeInUp 0.7s ease both;
+}
+
+/* כותרת */
+.title {
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  color: #fff;
+  text-shadow: 0 0 10px #000;
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+/* גריד כרטיסים */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* כרטיס עיצוב */
+.card-wrapper {
+  animation: popUp 0.6s ease forwards;
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.card-wrapper:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.card-wrapper:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.card-wrapper:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.home-wrapper {
+  min-height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 0;
+}
+
+.main-container {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.buttons-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.primary-button {
+  padding: 0.75rem 1.5rem;
+  background: #111;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primary-button:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+
+.articles-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}

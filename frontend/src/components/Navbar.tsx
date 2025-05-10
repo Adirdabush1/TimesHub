@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "./Firebase.tsx"; // ודא שהנתיב נכון לקובץ Firebase.tsx שלך
+import { auth } from "./Firebase.tsx";
 import { signOut } from "firebase/auth";
-
+import "./Navbar.css"; // ודא שקיים הקובץ
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,9 +13,9 @@ const Navbar = () => {
   useEffect(() => {
     const authMethod = localStorage.getItem("authMethod");
     const storedUser = localStorage.getItem("user");
-  
+
     setIsLoggedIn(!!authMethod && !!storedUser);
-  
+
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
@@ -25,12 +25,10 @@ const Navbar = () => {
       }
     }
   }, []);
-  
 
   const handleLogout = async () => {
     const authMethod = localStorage.getItem("authMethod");
-  
-    // אם המשתמש התחבר עם גוגל – נעשה signOut ב-Firebase
+
     if (authMethod === "google") {
       try {
         await signOut(auth);
@@ -39,59 +37,44 @@ const Navbar = () => {
         console.warn("Firebase logout failed:", error);
       }
     }
-  
-    // מחיקת כל הנתונים המקומיים
-    localStorage.removeItem("token");       // למשתמשים רגילים
-    localStorage.removeItem("user");        // לכולם
-    localStorage.removeItem("authMethod");  // ניקוי סוג ההתחברות
-  
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("authMethod");
+
     setIsLoggedIn(false);
     setUsername(null);
     navigate("/");
   };
-  
+
   return (
-    <nav style={{ display: "flex", justifyContent: "space-between", padding: "1rem", background: "#f3f3f3", position: "relative" }}>
-  
-       
-  {isLoggedIn && (
-  <button onClick={handleLogout} style={{ marginRight: "1rem" }}>
-    Logout
-  </button>
-)}
-  <div>{username ? `Hello, ${username}` : "Not logged in"}</div>
+    <nav className="navbar">
+      <div className="navbar-left" onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+        <h2 className="logo">📰 TimesHub</h2>
+      </div>
 
-  <h2>📰 TimesHub</h2>
-  <div style={{ display: "flex", alignItems: "center" }}>
-    <input placeholder="Search articles" style={{ marginRight: "1rem" }} />
+      <div className="navbar-right">
+        {username && <span className="welcome-text">Welcome, {username.split("@")[0]}</span>}
 
-
-    <div style={{ display: "inline-block", position: "relative" }}>
-      <button onClick={() => setDropdownOpen(!dropdownOpen)}>
-        My Account ⌄
-      </button>
-      {dropdownOpen && (
-        <div style={{ position: "absolute", right: 0, background: "#fff", border: "1px solid #ccc", marginTop: "0.5rem", zIndex: 10 }}>
-          {!isLoggedIn ? (
-            <button style={{ display: "block", width: "100%", padding: "0.5rem" }} onClick={() => navigate("/auth")}>
-              Login / Register
-            </button>
-          ) : (
-            <>
-              <button style={{ display: "block", width: "100%", padding: "0.5rem" }} onClick={() => navigate("/my-articles")}>
-                My Articles
-              </button>
-              <button style={{ display: "block", width: "100%", padding: "0.5rem" }} onClick={handleLogout}>
-                Logout
-              </button>
-            </>
+        <div className="dropdown">
+          <button className="dropdown-toggle" onClick={() => setDropdownOpen(!dropdownOpen)}>
+            My Account ⌄
+          </button>
+          {dropdownOpen && (
+            <div className="dropdown-menu">
+              {!isLoggedIn ? (
+                <button onClick={() => navigate("/auth")}>Login / Register</button>
+              ) : (
+                <>
+                  <button onClick={() => navigate("/my-articles")}>My Articles</button>
+                  <button onClick={handleLogout}>Logout</button>
+                </>
+              )}
+            </div>
           )}
         </div>
-      )}
-    </div>
-  </div>
-</nav>
-
+      </div>
+    </nav>
   );
 };
 

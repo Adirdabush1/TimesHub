@@ -16,7 +16,7 @@ const Article: React.FC = () => {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await fetch("http://localhost:3000/articles/1"); // Replace with your API endpoint
+        const response = await fetch(""); // Replace with your API endpoint
         if (!response.ok) {
           console.error("Error fetching article:", response.statusText);
         }

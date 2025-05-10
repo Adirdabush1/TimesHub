@@ -1,15 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
 import ArticleCard from "../components/ArticleCard";
 import Footer from "../components/Footer";
+import "./Home.css";
+
+// סוג של המאמרים
+interface Article {
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+}
 
 const Home = () => {
   const navigate = useNavigate();
-  const [articles, setArticles] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [articles, setArticles] = useState<Article[]>([]); // סוג נתונים מדויק
+  const [loading, setLoading] = useState<boolean>(true); // סוג boolean
+  const [user, setUser] = useState<any>(null); // סוג נתונים למשתמש
 
   useEffect(() => {
     // אם יש משתמש מחובר ב-localStorage, נאחסן אותו ב-state
@@ -27,11 +35,11 @@ const Home = () => {
         const filtered = data.articles.filter(
           (article: any) => article.urlToImage && article.urlToImage !== ""
         );
-        setArticles(filtered);
+        setArticles(filtered); // עדכון המאמרים
       } catch (error) {
         console.error("Error fetching news:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // מסיים את טעינת המאמרים
       }
     };
 
@@ -39,54 +47,49 @@ const Home = () => {
   }, []);
 
   const handleArticleClick = (articleUrl: string) => {
-    console.log("Button clicked!");  // בדוק אם הכפתור פועל
     if (user) {
-      window.open(articleUrl, "_blank");
+      window.open(articleUrl, "_blank"); // פותח את המאמר במצב חדש
     } else {
-      navigate("/Payment"); // מפנים לעמוד תשלום אם המשתמש לא מחובר
+      navigate("/Payment"); // אם המשתמש לא מחובר, מעבירים לדף תשלום
     }
   };
-  
 
   return (
-    <div>
+    <div className="home-wrapper">
+      <div className="overlay" />
       <Navbar />
       <div style={{ display: "flex" }}>
-        <Sidebar />
-        <main style={{ flex: 1, padding: "1rem" }}>
-          <button
-            onClick={() => navigate("/auth")}
-            style={{ marginBottom: "1rem", padding: "0.5rem 1rem" }}
-          >
-            Login / Register
-          </button>
+        <main className="main-container glass">
+          <div className="buttons-wrapper">
+            <button onClick={() => navigate("/auth")} className="primary-button animated-button">
+              Login / Register
+            </button>
+            <button
+              onClick={() => (user ? navigate("/article") : navigate("/auth"))}
+              className="primary-button animated-button"
+            >
+              Articles
+            </button>
+          </div>
 
-          <button
-  onClick={() => {
-    if (!user) {
-      navigate("/auth"); 
-    } else {
-      navigate("/article"); 
-     }
-  }}
-  style={{ marginBottom: "1rem", padding: "0.5rem 1rem" }}
->
-  Articles
-</button>
+          <h2 className="title">🔥 Featured Paid Articles 🔥</h2>
 
-          <h2>Paid Articles</h2>
           {loading ? (
-            <p>Loading articles...</p>
+            <p className="loading-text">Loading articles...</p>
           ) : (
-            articles.map((article, index) => (
-              <ArticleCard
-                key={index}
-                title={article.title}
-                preview={article.description}
-                price={Math.floor(Math.random() * 20) + 5}
-                onClick={() => handleArticleClick(article.url)} 
-              />
-            ))
+            <div className="articles-grid">
+              {articles.map((article, index) => (
+                <div key={index} className="card-wrapper">
+                  <ArticleCard
+                    title={article.title}
+                    preview={article.description}
+                    price={Math.floor(Math.random() * 20) + 5}
+                    imageUrl={article.urlToImage} // העברת התמונה לכרטיס המאמר
+                    onClick={() => handleArticleClick(article.url)}
+                  />
+                </div>
+              ))}
+            </div>
           )}
         </main>
       </div>
