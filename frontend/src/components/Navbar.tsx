@@ -66,7 +66,7 @@ const Navbar = () => {
                 <button onClick={() => navigate("/auth")}>Login / Register</button>
               ) : (
                 <>
-                  <button onClick={() => navigate("/my-articles")}>My Articles</button>
+                  <button onClick={() => navigate("/article")}>My Articles</button>
                   <button onClick={handleLogout}>Logout</button>
                 </>
               )}
