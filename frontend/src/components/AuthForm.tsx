@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { auth, GoogleAuthProvider, signInWithPopup } from "./Firebase.tsx";
 import { useNavigate } from 'react-router-dom';
 import { useUser } from "./UserContext.tsx";
-import "./AuthForm.cssadd"
+import "./AuthForm.css"
 
 const AuthForm: React.FC<{ isLogin: boolean; onSubmit: (formData: { email: string; password: string; name?: string }) => Promise<void> }> = ({ isLogin, onSubmit }) => {
   const { setUser } = useUser();
