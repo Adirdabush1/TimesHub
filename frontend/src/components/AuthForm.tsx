@@ -5,12 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import {useUser} from "./UserContext.tsx"
 
 
-const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
+const AuthForm: React.FC<{ isLogin: boolean; onSubmit: (formData: { email: string; password: string; name?: string }) => Promise<void> }> = ({ isLogin, onSubmit }) => {
+
+const { setUser } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const navigate = useNavigate();
-  const { setUser } = useUser();
 
 
   // פונקציה להתחברות עם גוגל דרך Firebase
@@ -124,5 +125,3 @@ const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
 };
 
 export default AuthForm;
-
-
