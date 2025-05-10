@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 
-const NewsFeed: React.FC = () => {
+interface User {
+  username: string;
+}
+
+interface NewsFeedProps {
+  user: User | null;
+}
+
+const NewsFeed: React.FC<NewsFeedProps> = ({ user }) => {
   const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user) return; // Don't fetch if user is not logged in
+
     const fetchNews = async () => {
       try {
         const res = await fetch(
@@ -23,7 +33,11 @@ const NewsFeed: React.FC = () => {
     };
 
     fetchNews();
-  }, []);
+  }, [user]);
+
+  if (!user) {
+    return <p>You must be logged in to view articles.</p>;
+  }
 
   if (loading) return <p>Loading news...</p>;
 
@@ -33,7 +47,10 @@ const NewsFeed: React.FC = () => {
     <div>
       <h2>📰 TechCrunch News</h2>
       {articles.map((article, index) => (
-        <div key={index} style={{ marginBottom: "1rem", borderBottom: "1px solid #ccc" }}>
+        <div
+          key={index}
+          style={{ marginBottom: "1rem", borderBottom: "1px solid #ccc" }}
+        >
           <h3>{article.title}</h3>
           <p>{article.description}</p>
           <img
@@ -42,7 +59,11 @@ const NewsFeed: React.FC = () => {
             style={{ maxWidth: "300px", height: "auto" }}
           />
           <p>
-            <a href={article.url} target="_blank" rel="noopener noreferrer">
+            <a
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Read more
             </a>
           </p>

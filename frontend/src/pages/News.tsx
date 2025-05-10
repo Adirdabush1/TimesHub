@@ -1,12 +1,9 @@
 import NewsFeed from "../components/NewsFeed";
+import { useUser } from "../components/UserContext"; // ודא שזה הנתיב הנכון
 
 const News = () => {
-  return (
-    <div style={{ padding: "2rem" }}>
-      <h1>חדשות מ-Google News</h1>
-      <NewsFeed />
-    </div>
-  );
+  const { user } = useUser();
+  return <NewsFeed user={user} />;
 };
 
 export default News;

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { auth, GoogleAuthProvider, signInWithPopup } from "./Firebase.tsx"; // import the new methods
 import { useNavigate } from 'react-router-dom';
+import {useUser} from "./UserContext.tsx"
 
 
 const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
@@ -9,6 +10,7 @@ const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
 
   // פונקציה להתחברות עם גוגל דרך Firebase
@@ -20,6 +22,9 @@ const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
       console.log("User signed in with Google: ", user);
       localStorage.setItem("user", JSON.stringify({ email: user.displayName || "Unknown" }));
       localStorage.setItem("authMethod", "google"); // <--- שורת מפתח!
+
+      setUser({ username: user.displayName || "Unknown" });
+
 
       navigate("/");
 
@@ -52,6 +57,7 @@ const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
         email: formData.email
       }));
       localStorage.setItem("authMethod", "local"); // <--- שורת מפתח!
+      setUser({ username: formData.name || "User" });
 
       navigate("/");
     } catch (error) {
