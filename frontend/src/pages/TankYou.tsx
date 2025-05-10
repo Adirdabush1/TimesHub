@@ -1,3 +1,4 @@
+// ThankYou.tsx
 import { useNavigate, useLocation } from "react-router-dom";
 
 const ThankYou = () => {
@@ -7,9 +8,11 @@ const ThankYou = () => {
 
   const handleArticleClick = () => {
     if (articleUrl) {
-      navigate(articleUrl); // מעבר ישיר לכתובת המאמר
+      // אם יש כתובת מאמר, נווט לשם
+      navigate(articleUrl);
     } else {
-      navigate("/Article"); // אפשרות ברירת מחדל אם אין URL
+      // אם אין כתובת מאמר, נווט לדף ברירת מחדל
+      navigate("/article"); // ברירת מחדל למאמר
     }
   };
 
