@@ -62,13 +62,19 @@ const Home = () => {
           </button>
 
           <button
-            onClick={() => navigate("/article")}
-            style={{ marginBottom: "1rem", padding: "0.5rem 1rem" }}
-          >
-            Articles
-          </button>
+  onClick={() => {
+    if (!user) {
+      navigate("/auth"); 
+    } else {
+      navigate("/article"); 
+     }
+  }}
+  style={{ marginBottom: "1rem", padding: "0.5rem 1rem" }}
+>
+  Articles
+</button>
 
-          <h2>Available Articles</h2>
+          <h2>Paid Articles</h2>
           {loading ? (
             <p>Loading articles...</p>
           ) : (

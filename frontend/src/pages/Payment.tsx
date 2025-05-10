@@ -20,7 +20,7 @@ const Payment = () => {
     setTimeout(() => {
       setIsProcessing(false);
       alert("Payment successful!");
-      navigate("/thank-you"); // לאחר תשלום מוצלח, מפנים לעמוד תודה
+      navigate("/TankYou"); // לאחר תשלום מוצלח, מפנים לעמוד תודה
     }, 2000);
   };
 
