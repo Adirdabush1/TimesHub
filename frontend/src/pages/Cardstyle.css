@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  line-height: 1.5;
+  background-color: #212121;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  width: 100%;
+  max-width: 500px;
+}
+
+.card-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.input-label {
+  position: absolute;
+  top: -0.8rem;
+  left: 1rem;
+  font-size: 0.75rem;
+  background: #212121;
+  padding: 0 0.25rem;
+  color: #aaa;
+}
+
+.input-field {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+}
+
+.action-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #45a049;
+}
+
+.action-button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  line-height: 1.5;
+  background-color: #212121;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  width: 100%;
+  max-width: 500px;
+}
+
+.card-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.input-label {
+  position: absolute;
+  top: -0.8rem;
+  left: 1rem;
+  font-size: 0.75rem;
+  background: #212121;
+  padding: 0 0.25rem;
+  color: #aaa;
+}
+
+.input-field {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+}
+
+.action-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #45a049;
+}
+
+.action-button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
